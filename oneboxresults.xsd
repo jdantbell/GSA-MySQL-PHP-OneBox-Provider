@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- This defines the format of the results expected from an
+    external onebox provider. for the Google Search Appliance (GSA). In some
+    cases, an element has a fairly cryptic name (e.g. "U"); this is because we
+    try to reuse names from google.dtd when possible. Please also see
+    onebox.xsd for the definition of a onebox on the GSA.  
+  -->
+  <xs:element name="OneBoxResults">
+    <xs:complexType>
+      <xs:sequence>
+
+        <xs:element name="resultCode" maxOccurs="1" minOccurs="0">
+          <xs:simpleType>
+             <xs:restriction base="xs:string">
+               <xs:enumeration value="success"/>
+               <xs:enumeration value="lookupFailure"/>
+               <xs:enumeration value="securityFailure"/>
+               <xs:enumeration value="timeout"/>
+             </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element minOccurs="0"  maxOccurs="1" name="Diagnostics">
+          <!-- Provider should use this result to send diagnostic information
+            if the onebox lookup failed, and also set the 'resultCode' element
+            to some value other than 'success'.  It is not illegal to send a diagnostic
+            alone, or with a resultCode of "success", but the diagnostic message may be
+            logged in a different manner, which will be implementation-dependent.
+          -->
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:maxLength value="256"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="provider" id="provider" minOccurs="0" maxOccurs="1">
+          <!--  This need not be the 'name' of the onebox module;
+            provider is free to use its own brand name, URL, or other
+            identifying information. 
+          -->
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:maxLength value="128"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="title" minOccurs="0" maxOccurs="1">
+          <!-- The title element contains both a link and the visible text that goes with
+            it.  Entire element is optional, but both components must be present, if either is.
+          -->
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="urlText">
+                <!-- A title for all the results shown below, e.g. "Airport results" .  Optional
+                  -->
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="urlLink">
+                <!-- A URL for all the results shown below, not for any specific MODULE_RESULT.
+                Optional.
+              -->
+                <xs:simpleType>
+                  <xs:restriction base="xs:string"/>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="IMAGE_SOURCE" id="IMAGE_SOURCE" minOccurs="0">
+          <!-- Reference to the image to be displayed on this
+            onebox's results.  Optional. 
+          -->
+          <xs:simpleType>
+            <xs:restriction base="xs:string"/>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="MODULE_RESULT" id="MODULE_RESULT" minOccurs="0"
+          maxOccurs="8">
+          <!-- A MODULE_RESULT is the actual results from the
+            onebox provider. It may occur from zero to 8 times. If zero, the
+            meaning is assumed to be that there were no results for the query.
+          -->
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="U" minOccurs="0">
+                <!-- The URL of the search  result-->
+                <xs:simpleType>
+                  <xs:restriction base="xs:string"/>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Title" minOccurs="0" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string"/>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Field" minOccurs="0" maxOccurs="unbounded">
+                <!-- Results to be displayed, after rendering by
+                  the style sheet (either Google default or as provided by the
+                  administrator). Note that the Field element may carry a
+                  'name' attribute, which can be referenced in the style sheet
+                  provided by the administrator. 
+                -->
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="name" type="xs:string" use="optional"/>
+                      <xs:anyAttribute namespace="##any" processContents="skip"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+
+            <xs:anyAttribute processContents="skip">
+              <!-- This is a placeholder for future growth, and
+                to allow providers to add their own data to the results
+                without breaking test validation. Attribute data will not be
+                processed by the GSA. 
+              -->
+            </xs:anyAttribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:anyAttribute processContents="skip">
+        <!-- This is a placeholder for future growth, and to
+          allow providers to add their own data to the results without
+          breaking test validation. Attribute data will not be processed by
+          the GSA. 
+        -->
+      </xs:anyAttribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GoogleEnterpriseSources 
+ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <onebox type="external" suppressDateTime="true" suppressIPAddr="true">
+    <name>directory_example</name>
+    <security userAuth="none">
+      <GSA_username>query_user</GSA_username>
+      <GSA_password>passw0rd</GSA_password>
+    </security>
+    <description>This is a sample OneBox that queries for phone directory
+      information. Do not assign this to a Front End unless you have replaced
+      the URL that of a valid provider. </description>
+    <trigger triggerType="keyword">directory|dir|contact|phone</trigger>
+    <providerURL>http://directory.corp.acme.com/cgi-bin/phonebook</providerURL>
+    <resultsTemplate>
+      <xsl:template name="directory_results">
+        <table border="0" cellpadding="1" cellspacing="0">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <nobr>
+                  <a>
+                    <xsl:attribute name="href">
+                      <xsl:value-of select="title/urlLink"/>
+                    </xsl:attribute>
+                    <b>
+                      <xsl:value-of select="title/urlText"/>
+                    </b>
+                  </a>
+                </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top" width="40">
+                <img>
+                  <xsl:attribute name="src">
+                    <xsl:value-of select="IMAGE_SOURCE"/>
+                  </xsl:attribute>
+                </img>
+              </td>
+              <td valign="top" width="99%">
+                <xsl:for-each select="MODULE_RESULT">
+                  <font size="-1">
+                    <b>
+                      <a>
+                        <xsl:attribute name="href">
+                          <xsl:value-of select="U"/>
+                        </xsl:attribute>
+                        <xsl:value-of select="Field[@name='firstname']"
+                        /> <xsl:value-of
+                          select="Field[@name='lastname']"/>
+                      </a>
+                    </b> - <xsl:value-of select="Field[@name='email']"/> -
+                      <xsl:value-of select="Field[@name='phone']"/>
+                  </font>
+                  <br/>
+                </xsl:for-each>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </xsl:template>
+    </resultsTemplate>
+  </onebox>
+</GoogleEnterpriseSources>

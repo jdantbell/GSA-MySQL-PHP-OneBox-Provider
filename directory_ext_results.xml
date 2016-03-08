@@ -1,0 +1,31 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<OneBoxResults xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="oneboxresults.xsd">
+  <resultCode>success</resultCode>
+  <provider>ACME Employee Directory</provider>
+  <title>
+    <urlText>13 results in the ACME directory</urlText>
+    <urlLink>http://directory.corp.acme.com/cgi-bin/search?bill%20smith</urlLink>
+  </title>
+  <IMAGE_SOURCE>http://directory.corp.acme.com//images/onebox.jpg</IMAGE_SOURCE>
+  <MODULE_RESULT>
+    <U>http://directory.corp.acme.com/cqi-bin/lookup?empid=448473</U>
+    <Title></Title>
+    <Field name="display">Smith, William</Field>
+    <Field name="firstname">William</Field>
+    <Field name="lastname">Smith</Field>
+    <Field name="phone">617-555-1234</Field>
+    <Field name="email">wsmith@acmecorp.com</Field>
+    <Field name="picture">http://directory.corp.acme.com/cqi-bin/lookup?photo=448473</Field>
+  </MODULE_RESULT>
+  <MODULE_RESULT>
+    <U>http://directory.corp.acme.com/cqi-bin/lookup?empid=22638</U>
+    <Title></Title>
+    <Field name="display">Smith, Bill R.</Field>
+    <Field name="firstname">Bill</Field>
+    <Field name="lastname">Smith</Field>
+    <Field name="phone">617-555-9345</Field>
+    <Field name="email">bsmith@acmecorp.com</Field>
+    <Field name="picture">http://directory.corp.acme.com/cqi-bin/lookup?photo=22638</Field>
+  </MODULE_RESULT>
+</OneBoxResults>
